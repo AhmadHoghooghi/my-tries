@@ -1,6 +1,7 @@
 package com.rhotiz.container.demo;
 
 import java.util.concurrent.CompletableFuture;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,37 +18,38 @@ import org.testcontainers.utility.DockerImageName;
 @Testcontainers
 class ContainerDemoApplicationTests {
 
-	@Autowired
-	private KafkaTemplate<String, String> kafkaTemplate;
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
 
-	@Container
-	static ConfluentKafkaContainer kafka =  new ConfluentKafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.8.0"));
+    @Container
+    static ConfluentKafkaContainer kafka = new ConfluentKafkaContainer(
+            DockerImageName.parse("docker.arvancloud.ir/confluentinc/cp-kafka:7.8.0")
+            .asCompatibleSubstituteFor("confluentinc/cp-kafka")
+    );
 
-	@DynamicPropertySource
-	static void kafkaProperties(DynamicPropertyRegistry registry) {
-		registry.add("spring.kafka.bootstrap-servers", kafka::getBootstrapServers);
-	}
+    @DynamicPropertySource
+    static void kafkaProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.kafka.bootstrap-servers", kafka::getBootstrapServers);
+    }
 
 
+    @Test
+    void contextLoads() throws InterruptedException {
 
-	@Test
-	void contextLoads() throws InterruptedException {
+        String message = "Hello World";
+        CompletableFuture<SendResult<String, String>> future = kafkaTemplate.send("topic-1", message);
+        future.whenComplete((result, ex) -> {
+            if (ex == null) {
+                System.out.println("Sent message=[" + message +
+                        "] with offset=[" + result.getRecordMetadata().offset() + "]");
+            } else {
+                System.out.println("Unable to send message=[" +
+                        message + "] due to : " + ex.getMessage());
+            }
+        });
 
-		String message = "Hello World";
-		CompletableFuture<SendResult<String, String>> future = kafkaTemplate.send("topic-1", message);
-		future.whenComplete((result, ex) -> {
-			if (ex == null) {
-				System.out.println("Sent message=[" + message +
-						"] with offset=[" + result.getRecordMetadata().offset() + "]");
-			} else {
-				System.out.println("Unable to send message=[" +
-						message + "] due to : " + ex.getMessage());
-			}
-		});
+        Thread.sleep(30_000);
 
-		Thread.sleep(30_000);
-
-		System.out.println("Kafka image is executed.");
-	}
-
+        System.out.println("Kafka image is executed.");
+    }
 }
