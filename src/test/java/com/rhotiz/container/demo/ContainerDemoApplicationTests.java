@@ -1,8 +1,5 @@
 package com.rhotiz.container.demo;
 
-import java.util.concurrent.CompletableFuture;
-
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +15,12 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.kafka.ConfluentKafkaContainer;
 import org.testcontainers.utility.DockerImageName;
 
+import java.util.concurrent.CompletableFuture;
+
 @SpringBootTest
 @Testcontainers
 class ContainerDemoApplicationTests {
+
     static Logger KAFKA_CONTAINER_LOGGER = LoggerFactory.getLogger("KafkaContainer");
 
     @Autowired
