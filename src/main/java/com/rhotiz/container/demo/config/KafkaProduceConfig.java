@@ -27,13 +27,13 @@ public class KafkaProduceConfig {
     @Bean
     public KafkaAdmin kafkaAdmin() {
         Map<String, Object> configs = new HashMap<>();
-        configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaConnectionDetails.getAdminBootstrapServers());
+        configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaConnectionDetails.getBootstrapServers());
         return new KafkaAdmin(configs);
     }
 
     @Bean
     public NewTopic topic1() {
-        return new NewTopic("topic1", 1, (short) 1);
+        return new NewTopic(Constants.TOPIC_1, 1, (short) 1);
     }
 
     @Bean
@@ -41,7 +41,7 @@ public class KafkaProduceConfig {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(
                 ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
-                kafkaConnectionDetails.getProducerBootstrapServers());
+                kafkaConnectionDetails.getBootstrapServers());
         configProps.put(
                 ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 StringSerializer.class);

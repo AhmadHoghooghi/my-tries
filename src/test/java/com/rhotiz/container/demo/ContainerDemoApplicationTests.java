@@ -1,6 +1,8 @@
 package com.rhotiz.container.demo;
 
+import com.rhotiz.container.demo.config.Constants;
 import com.rhotiz.container.demo.kafka.MyKafkaListener;
+import com.rhotiz.container.demo.kafka.SendCallback;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,12 +45,10 @@ class ContainerDemoApplicationTests {
     @Test
     void sendMessageAndReceiveHappyPath() {
         String message = "Unique Message with Id: " + UUID.randomUUID();
-        kafkaTemplate.send("topic-1", message)
+        kafkaTemplate.send(Constants.TOPIC_1, message)
                 .whenComplete(new SendCallback());
         logger.info("Send fired for {}", message);
         logger.info("Waiting to receive message from kafka...");
         Awaitility.await().until(() -> myKafkaListener.received(message));
     }
-
-
 }

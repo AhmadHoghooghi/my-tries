@@ -1,4 +1,4 @@
-package com.rhotiz.container.demo;
+package com.rhotiz.container.demo.kafka;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,7 @@ public class SendCallback implements BiConsumer<SendResult<String, String>, Thro
             );
         } else {
             SendCallback.log.error("Unable to send message=[{}] due to : {}",
-                    result.getProducerRecord().value() +
+                    result.getProducerRecord().value() ,
                             throwable.getMessage());
         }
     }

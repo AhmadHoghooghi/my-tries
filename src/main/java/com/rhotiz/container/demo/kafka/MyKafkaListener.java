@@ -1,5 +1,6 @@
 package com.rhotiz.container.demo.kafka;
 
+import com.rhotiz.container.demo.config.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,14 +17,13 @@ public class MyKafkaListener {
     private static final Logger log = LoggerFactory.getLogger(MyKafkaListener.class);
     private final List<String> messages = new ArrayList<>();
 
-    @KafkaListener(topics = "topic-1")
+    @KafkaListener(topics = Constants.TOPIC_1)
     public void kafkaListener(String message) {
         messages.add(message);
         log.info("I get this message from kafka: [{}]", message);
     }
 
     public boolean received(String message) {
-
         return messages.contains(message);
     }
 }
