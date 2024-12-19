@@ -44,8 +44,7 @@ class ContainerDemoApplicationTests {
 
 
     @Test
-    void sendMessageAndReceiveHappyPath() throws InterruptedException {
-
+    void sendMessageAndReceiveHappyPath() {
         String message = "Unique Message with Id: " + UUID.randomUUID();
         kafkaTemplate.send("topic-1", message)
                 .whenComplete(new SendCallback());
