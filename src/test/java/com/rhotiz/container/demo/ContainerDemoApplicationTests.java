@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -25,7 +23,7 @@ import java.util.UUID;
 class ContainerDemoApplicationTests {
 
     static Logger KAFKA_CONTAINER_LOGGER = NOPLogger.NOP_LOGGER;
-//    static Logger KAFKA_CONTAINER_LOGGER = LoggerFactory.getLogger("KafkaContainer");
+    //    static Logger KAFKA_CONTAINER_LOGGER = LoggerFactory.getLogger("KafkaContainer");
     static Logger logger = LoggerFactory.getLogger(ContainerDemoApplicationTests.class);
 
     @Autowired
@@ -35,16 +33,11 @@ class ContainerDemoApplicationTests {
     private MyKafkaListener myKafkaListener;
 
     @Container
-//    @ServiceConnection
+    @ServiceConnection
     static ConfluentKafkaContainer kafka = new ConfluentKafkaContainer(
             DockerImageName.parse("docker.arvancloud.ir/confluentinc/cp-kafka:7.8.0")
                     .asCompatibleSubstituteFor("confluentinc/cp-kafka")
     ).withLogConsumer(new Slf4jLogConsumer(KAFKA_CONTAINER_LOGGER));
-
-    @DynamicPropertySource
-    static void kafkaProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.kafka.bootstrap-servers", kafka::getBootstrapServers);
-    }
 
 
     @Test
