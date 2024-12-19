@@ -48,7 +48,7 @@ class ContainerDemoApplicationTests {
             }
         });
 
-        Thread.sleep(30_000);
+        Thread.sleep(10_000);
 
         System.out.println("Kafka image is executed.");
     }
