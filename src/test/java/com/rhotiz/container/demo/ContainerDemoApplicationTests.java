@@ -2,13 +2,17 @@ package com.rhotiz.container.demo;
 
 import java.util.concurrent.CompletableFuture;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.kafka.ConfluentKafkaContainer;
@@ -17,6 +21,7 @@ import org.testcontainers.utility.DockerImageName;
 @SpringBootTest
 @Testcontainers
 class ContainerDemoApplicationTests {
+    static Logger KAFKA_CONTAINER_LOGGER = LoggerFactory.getLogger("KafkaContainer");
 
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
@@ -25,7 +30,7 @@ class ContainerDemoApplicationTests {
     static ConfluentKafkaContainer kafka = new ConfluentKafkaContainer(
             DockerImageName.parse("docker.arvancloud.ir/confluentinc/cp-kafka:7.8.0")
             .asCompatibleSubstituteFor("confluentinc/cp-kafka")
-    );
+    ).withLogConsumer(new Slf4jLogConsumer(KAFKA_CONTAINER_LOGGER));
 
     @DynamicPropertySource
     static void kafkaProperties(DynamicPropertyRegistry registry) {
