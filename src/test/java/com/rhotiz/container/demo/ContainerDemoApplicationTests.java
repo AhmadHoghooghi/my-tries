@@ -35,11 +35,16 @@ class ContainerDemoApplicationTests {
     private MyKafkaListener myKafkaListener;
 
     @Container
-    @ServiceConnection
+//    @ServiceConnection
     static ConfluentKafkaContainer kafka = new ConfluentKafkaContainer(
             DockerImageName.parse("docker.arvancloud.ir/confluentinc/cp-kafka:7.8.0")
                     .asCompatibleSubstituteFor("confluentinc/cp-kafka")
     ).withLogConsumer(new Slf4jLogConsumer(KAFKA_CONTAINER_LOGGER));
+
+    @DynamicPropertySource
+    static void kafkaProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.kafka.bootstrap-servers", kafka::getBootstrapServers);
+    }
 
 
     @Test
