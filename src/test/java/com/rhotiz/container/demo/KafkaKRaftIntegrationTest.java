@@ -22,11 +22,11 @@ import java.util.UUID;
 
 @SpringBootTest
 @Testcontainers
-class ContainerDemoApplicationTests {
+class KafkaKRaftIntegrationTest {
 
     static Logger KAFKA_CONTAINER_LOGGER = NOPLogger.NOP_LOGGER;
     //    static Logger KAFKA_CONTAINER_LOGGER = LoggerFactory.getLogger("KafkaContainer");
-    static Logger logger = LoggerFactory.getLogger(ContainerDemoApplicationTests.class);
+    static Logger logger = LoggerFactory.getLogger(KafkaKRaftIntegrationTest.class);
 
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
