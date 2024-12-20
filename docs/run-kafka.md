@@ -7,6 +7,10 @@ docker stop kafka780
 ```
 
 ```shell
+docker start kafka780
+```
+
+```shell
 docker rm kafka780
 ```
 ```shell
@@ -19,7 +23,7 @@ export KAFKA_DOCKER_IMAGE=docker.arvancloud.ir/confluentinc/cp-kafka:7.8.0
 
 Run a kafka in KRaft mode
 ```shell
-docker run \
+docker run -d \
   --name kafka780 \
   --network host \
   -e KAFKA_NODE_ID=1 \

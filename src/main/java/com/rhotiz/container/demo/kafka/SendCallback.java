@@ -13,12 +13,12 @@ public class SendCallback implements BiConsumer<SendResult<String, String>, Thro
     @Override
     public void accept(SendResult<String, String> result, Throwable throwable) {
         if (throwable == null) {
-            log.info("Sent message=[{}] with offset=[{}]",
+            log.info("Sent message={} with offset={}",
                     result.getProducerRecord().value(),
                     result.getRecordMetadata().offset()
             );
         } else {
-            SendCallback.log.error("Unable to send message=[{}] due to : {}",
+            SendCallback.log.error("PROBLEM: Unable to send message={} due to : {}",
                     result.getProducerRecord().value() ,
                             throwable.getMessage());
         }

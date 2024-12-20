@@ -10,20 +10,22 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import java.util.Random;
 
 @Slf4j
 @Service
-@ConditionalOnProperty(name = "my-kafka.producer.enabled", havingValue = "true")
+@ConditionalOnProperty(value = "interaction-with-kafka.enabled", havingValue = "true")
 public class MyKafkaProducer {
     private static final Logger log = LoggerFactory.getLogger(MyKafkaProducer.class);
+
+    Random random = new Random();
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
 
     @Scheduled(fixedRate = 10_000L)
     void sendMessageToKafka() {
-        String message = "Scheduled Message: " + UUID.randomUUID();
+        String message = "Scheduled Message: [" + random.nextInt(1000) + "]";
         kafkaTemplate.send(Constants.TOPIC_1, message).whenComplete(new SendCallback());
         log.info("Send fired by scheduler on message: {}", message);
     }

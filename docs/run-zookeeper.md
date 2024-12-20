@@ -5,11 +5,11 @@ docker ps
 ```
 
 ```shell
-docker stop zookeper393
+docker stop zookeeper393
 ```
 
 ```shell
-docker rm zookeper393
+docker rm zookeeper393
 ```
 ```shell
 export ZOOKEEPER_DOCKER_IMAGE=zookeeper:3.9.3
@@ -19,10 +19,10 @@ export ZOOKEEPER_DOCKER_IMAGE=zookeeper:3.9.3
 export ZOOKEEPER_DOCKER_IMAGE=docker.arvancloud.ir/zookeeper:3.9.3
 ```
 
-Run a kafka in KRaft mode
 ```shell
-$ docker run -d \
- --name zookeeper393 \
+  docker run -d \
+  --network host \
+  --name zookeeper393 \
   --restart always \
    $ZOOKEEPER_DOCKER_IMAGE
 ```
