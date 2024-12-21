@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConditionalOnProperty(value = "interaction-with-zookeeper.enabled", havingValue = "true")
+@ConditionalOnProperty(value = "zookeeper.interaction.config.enabled", havingValue = "true")
 public class ZooKeeperCuratorConfig {
 
     @Value("${zookeeper.connection-string}")

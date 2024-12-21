@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
-@ConditionalOnProperty(value = "interaction-with-zookeeper.enabled", havingValue = "true")
+@ConditionalOnProperty(value = "zookeeper.interaction.action.enabled", havingValue = "true")
 public class ZooKeeperService {
 
     private static final Logger log = LoggerFactory.getLogger(ZooKeeperService.class);

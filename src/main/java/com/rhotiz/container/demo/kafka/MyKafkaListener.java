@@ -13,7 +13,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-@ConditionalOnProperty(value = "interaction-with-kafka.enabled", havingValue = "true")
+@ConditionalOnProperty(value = "kafka.interaction.config.enabled", havingValue = "true")
 public class MyKafkaListener {
 
     private static final Logger log = LoggerFactory.getLogger(MyKafkaListener.class);

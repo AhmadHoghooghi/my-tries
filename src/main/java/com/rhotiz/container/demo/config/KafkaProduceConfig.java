@@ -19,7 +19,7 @@ import java.util.Map;
 
 
 @Configuration
-@ConditionalOnProperty(value = "interaction-with-kafka.enabled", havingValue = "true")
+@ConditionalOnProperty(value = "kafka.interaction.config.enabled", havingValue = "true")
 public class KafkaProduceConfig {
 
 
