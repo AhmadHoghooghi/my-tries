@@ -1,14 +1,10 @@
 package com.rhotiz.container.demo;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import com.rhotiz.container.demo.zookeeper.ZookeeperUtil;
-import java.util.UUID;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -19,12 +15,18 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-@Slf4j
+import java.util.UUID;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 @SpringBootTest
 @Testcontainers
 @TestPropertySource(properties = {"zookeeper.interaction.config.enabled=true"})
 public class ZookeeperIntegrationTest {
 
+    Logger log = LoggerFactory.getLogger(ZookeeperIntegrationTest.class);
 
     @Container
     @SuppressWarnings("rawtypes")
