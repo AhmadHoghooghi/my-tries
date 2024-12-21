@@ -25,7 +25,9 @@ import org.testcontainers.utility.DockerImageName;
 @TestPropertySource(properties = {"zookeeper.interaction.config.enabled=true"})
 public class ZookeeperIntegrationTest {
 
+
     @Container
+    @SuppressWarnings("rawtypes")
     public static GenericContainer zooKeeper = new GenericContainer(DockerImageName.parse("docker.arvancloud.ir/zookeeper:3.9.3"))
             .withExposedPorts(2181);
 
