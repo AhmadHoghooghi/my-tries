@@ -1,6 +1,5 @@
 package com.rhotiz.container.demo;
 
-import com.rhotiz.container.demo.config.Constants;
 import com.rhotiz.container.demo.kafka.MyKafkaListener;
 import com.rhotiz.container.demo.kafka.SendCallback;
 import java.util.UUID;

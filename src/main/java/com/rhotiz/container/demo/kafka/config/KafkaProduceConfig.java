@@ -1,5 +1,6 @@
-package com.rhotiz.container.demo.config;
+package com.rhotiz.container.demo.kafka.config;
 
+import com.rhotiz.container.demo.Constants;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;

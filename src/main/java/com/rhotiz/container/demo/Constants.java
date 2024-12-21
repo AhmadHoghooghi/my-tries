@@ -1,4 +1,4 @@
-package com.rhotiz.container.demo.config;
+package com.rhotiz.container.demo;
 
 public class Constants {
     public Constants() {

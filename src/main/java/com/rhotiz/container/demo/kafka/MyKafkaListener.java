@@ -1,6 +1,6 @@
 package com.rhotiz.container.demo.kafka;
 
-import com.rhotiz.container.demo.config.Constants;
+import com.rhotiz.container.demo.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
