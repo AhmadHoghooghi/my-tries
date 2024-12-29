@@ -37,11 +37,18 @@ export HBASE_IMAGE=dajobe/hbase
 export HBASE_IMAGE=docker.arvancloud.ir/dajobe/hbase
 ```
 
+--network host \
 -d
 ```shell
-docker run  \
+docker run -d  \
   --name=hbase212 \
   -h hbase-docker \
+  -p 2181:2181 \
+  -p 8080:8080 \
+  -p 8085:8085 \
+  -p 9090:9090 \
+  -p 9095:9095 \
+  -p 16010:16010 \
   $HBASE_IMAGE
 ```
 
@@ -65,8 +72,17 @@ docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' hbas
 hbase212IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' hbase212)
 echo "$hbase212IP hbase-docker "
 ```
+
+```shell
+cat /etc/hosts
+```
+
 ```shell
 sudo vim /etc/hosts
+```
+
+```shell
+docker restart hbase212 
 ```
 
 
