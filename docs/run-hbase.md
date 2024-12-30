@@ -1,10 +1,7 @@
 hbase version:
 2.1.10
 
-
-import org.apache.hadoop.hbase.client.Connection;
-import org.apache.hadoop.io.Writable;
-import org.apache.hadoop.io.WritableComparable;
+https://hbase.apache.org/2.6/apidocs/org/apache/hadoop/hbase/client/package-summary.html
 
 https://hub.docker.com/r/dajobe/hbase/
 https://github.com/dajobe/hbase-docker
