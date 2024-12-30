@@ -49,6 +49,13 @@ docker run -d  \
   $HBASE_IMAGE
 ```
 
+- 2181: for zookeeper
+- 8080: Hbase REST API
+- 8085: Hbase Rest Web UI (http://hbase-docker:8085/rest.jsp)
+- 9090: Thrift API 
+- 9095: Thrift UI (http://hbase-docker:9095/thrift.jsp)
+- 16010: Embedded Zookeeper status (http://hbase-docker:16010/zk.jsp) and master status (http://hbase-docker:16010/master-status)
+
 https://hbase.apache.org/book.html#configuration
 ```shell
 docker exec -it hbase212 bash
