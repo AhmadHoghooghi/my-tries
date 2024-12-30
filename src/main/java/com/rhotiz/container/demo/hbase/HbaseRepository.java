@@ -4,11 +4,13 @@ import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 
 @Repository
+@ConditionalOnProperty(name = "hbase.interaction.config.enabled", havingValue = "true")
 public class HbaseRepository {
 
     @Autowired

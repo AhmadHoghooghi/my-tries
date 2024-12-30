@@ -13,7 +13,7 @@ import java.io.IOException;
 import static com.rhotiz.container.demo.hbase.HbaseConstants.TEST;
 
 @Service
-@ConditionalOnProperty(name = "hbase.interaction.config.enabled", havingValue = "true")
+@ConditionalOnProperty(name = "hbase.interaction.action.enabled", havingValue = "true")
 public class HbaseService {
     Logger logger = LoggerFactory.getLogger(HbaseService.class);
 

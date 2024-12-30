@@ -6,11 +6,13 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
 @Service
+@ConditionalOnProperty(name = "hbase.interaction.config.enabled", havingValue = "true")
 public class HbaseAdminService {
 
     Logger logger = LoggerFactory.getLogger(HbaseAdminService.class);
