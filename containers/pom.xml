@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.rhotiz</groupId>
-    <artifactId>container-demo</artifactId>
+    <artifactId>containers</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>container-demo</name>
     <description>Demo project for Spring Boot</description>
