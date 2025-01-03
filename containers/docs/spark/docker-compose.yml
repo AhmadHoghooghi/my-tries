@@ -14,6 +14,7 @@ services:
       - SPARK_USER=spark
     ports:
       - '8080:8080'
+      - "4040-4050:4040-4050" # Spark Application UIs
   spark-worker:
     container_name: spark-worker
     image: docker.arvancloud.ir/bitnami/spark:3.5
@@ -27,3 +28,5 @@ services:
       - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
       - SPARK_SSL_ENABLED=no
       - SPARK_USER=spark
+    ports:
+      - '8081:8081'
