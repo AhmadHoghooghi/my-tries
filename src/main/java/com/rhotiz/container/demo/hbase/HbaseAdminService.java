@@ -21,7 +21,7 @@ public class HbaseAdminService {
     Connection connection;
 
 
-    void createTable(String tableNameString) {
+    public void createTable(String tableNameString) {
         try (Admin admin = connection.getAdmin()) {
             TableName tableName = TableName.valueOf(tableNameString);
             boolean isAvailable = admin.isTableAvailable(tableName);
@@ -40,7 +40,7 @@ public class HbaseAdminService {
         }
     }
 
-    void deleteTableIfExists(String tableNameString) {
+    public void deleteTableIfExists(String tableNameString) {
         try (Admin admin = connection.getAdmin()) {
             TableName tableName = TableName.valueOf(tableNameString);
             boolean isAvailable = admin.isTableAvailable(tableName);
