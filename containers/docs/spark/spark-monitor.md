@@ -54,23 +54,3 @@ Starting Spark application UI at http://<host>:4040
 
 Alternatively, if you're using a Spark driver, it prints the UI URL to the console output.
 
-# Question 1:
-I can access the logs of submitted job 
-
-http://7690b33c696e:8081/logPage/?driverId=driver-20250103152008-0000&logType=stdout
-http://7690b33c696e:8081/logPage/?driverId=driver-20250103152008-0000&logType=stderr
-
-with changing  `7690b33c696e` to localhost.
-
-this is link of back to master:
-http://31b70d253f48:8080/
-
-CONTAINER ID   IMAGE                                    COMMAND                  CREATED          STATUS          PORTS                                                                                                      NAMES
-31b70d253f48   docker.arvancloud.ir/bitnami/spark:3.5   "/opt/bitnami/script…"   10 minutes ago   Up 10 minutes   0.0.0.0:4040-4050->4040-4050/tcp, :::4040-4050->4040-4050/tcp, 0.0.0.0:8080->8080/tcp, :::8080->8080/tcp   spark-master
-7690b33c696e   docker.arvancloud.ir/bitnami/spark:3.5   "/opt/bitnami/script…"   10 minutes ago   Up 10 minutes   0.0.0.0:8081->8081/tcp, :::8081->8081/tcp                                                                  spark-worker
-
-this shows that in spark ui is uses container id's for creating links. how can i fix this?
-
-
-# Question 2:
-What is usage of 4040 port?

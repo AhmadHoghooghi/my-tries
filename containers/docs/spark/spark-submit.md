@@ -65,18 +65,3 @@ How to use fat or uber jar:
 ```shell
 mvn clean package
 ```
-
-# Question 1:
-How can i submit using REST APIs?
-
-# Question 2:
-this is a sample submit for [here](https://spark.apache.org/docs/3.5.4/submitting-applications.html#launching-applications-with-spark-submit)
-```shell
-# Run application locally on 8 cores
-./bin/spark-submit \
---class org.apache.spark.examples.SparkPi \
---master local[8] \
-/path/to/examples.jar \
-100
-```
-and in docker compose we have passed such an option `SPARK_WORKER_CORES=1`. How can these two configs correlate?
