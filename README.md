@@ -4,4 +4,4 @@
 * [run-kafka](./containers/docs/run-kafka.md)
 * [run-zookeeper](./containers/docs/run-zookeeper.md)
 * [run-hbase](./containers/docs/run-hbase.md)
-* [run-spark](./containers/docs/spark/run-spark.md)
+* [run-spark](./containers/docs/spark/02-run-spark)
