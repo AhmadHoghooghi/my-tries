@@ -3,7 +3,7 @@
 # Testing Two Workers
 - [ ] test effect of two workers and two thread in each of them with a query for example
 # Configure Spark-UI
-- [ ] How to config master and worker containers so that `spark-ui` shows them well?
+- [x] How to config master and worker containers so that `spark-ui` shows them well?
 I can access the logs of submitted job
 
 `http://7690b33c696e:8081/logPage/?driverId=driver-20250103152008-0000&logType=stdout`
@@ -22,6 +22,10 @@ CONTAINER ID   IMAGE                                    COMMAND                 
 ```
 this shows that in spark ui is uses container id's for creating links. how can i fix this?
 
+## answer:
+solved by setting this property in docker compose for each master and worker: `SPARK_PUBLIC_DNS=localhost`
+Description about property:
+The public DNS name of the Spark master and workers (default: none).
 
 # Monitoring port 4040
 - [ ] What is usage of 4040 port?

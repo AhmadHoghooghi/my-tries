@@ -13,6 +13,7 @@ services:
       - SPARK_SSL_ENABLED=no
       - SPARK_USER=spark
       - SPARK_MASTER_OPTS="-Dspark.master.rest.enabled=true"
+      - SPARK_PUBLIC_DNS=localhost
     ports:
       - '8080:8080'
       - '6066:6066'
@@ -30,5 +31,6 @@ services:
       - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
       - SPARK_SSL_ENABLED=no
       - SPARK_USER=spark
+      - SPARK_PUBLIC_DNS=localhost
     ports:
       - '8081:8081'
