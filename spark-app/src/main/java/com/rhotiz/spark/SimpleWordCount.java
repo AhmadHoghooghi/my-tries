@@ -1,5 +1,6 @@
 package com.rhotiz.spark;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -9,7 +10,6 @@ import scala.Tuple2;
 
 import java.util.Arrays;
 import java.util.List;
-
 public class SimpleWordCount {
     public static void main(String[] args) {
         // Step 1: Configure Spark
@@ -30,7 +30,10 @@ public class SimpleWordCount {
                     .map((Function<Tuple2<String, Integer>, Tuple2<String, Integer>>) t -> t);
 
             // Step 5: Collect and print the results
-            wordCounts.collect().forEach(tuple -> System.out.println(tuple._1() + ": " + tuple._2()));
+            wordCounts.collect().forEach(tuple -> {
+                String message = StringUtils.upperCase(tuple._1()) + ": " + tuple._2();
+                System.out.println(message);
+            });
 
             sleep();
             // Step 6: Stop the Spark context
