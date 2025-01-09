@@ -5,4 +5,4 @@
 * [Spark Configuration](https://spark.apache.org/docs/3.5.4/configuration.html)
 
 until
-[Launching Spark Applications](https://spark.apache.org/docs/3.5.4/spark-standalone.html#launching-spark-applications)
+[Running Alongside Hadoop](https://spark.apache.org/docs/3.5.4/spark-standalone.html#running-alongside-hadoop)
