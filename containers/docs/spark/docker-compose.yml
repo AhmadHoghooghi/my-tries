@@ -17,6 +17,9 @@ services:
     ports:
       - '8080:8080'
       - '6066:6066'
+    volumes:
+      - ${SPARK_APPLICATION_JAR_DIRECTORY}:/tmp/spark-app-jars/
+
   spark-worker:
     container_name: spark-worker
     image: docker.arvancloud.ir/bitnami/spark:3.5
@@ -35,7 +38,8 @@ services:
       - '8081:8081'
       - "4040-4050:4040-4050" # Spark Application UIs
     volumes:
-      - ${LOG_PATH_ON_HOST}:${LOG_PATH_ON_CONTAINER}:rw
+      - ${LOG_PATH_ON_HOST}:${LOG_PATH_ON_CONTAINER}
+      - ${SPARK_APPLICATION_JAR_DIRECTORY}:/tmp/spark-app-jars/
 
   spark-history:
     container_name: spark-history
@@ -46,5 +50,5 @@ services:
     ports:
       - '18080:18080'  # History Server Default port
     volumes:
-      - ${LOG_PATH_ON_HOST}:${LOG_PATH_ON_CONTAINER}:rw  # Local directory mapped to /tmp/spark-events in the container
+      - ${LOG_PATH_ON_HOST}:${LOG_PATH_ON_CONTAINER}  # Local directory mapped to /tmp/spark-events in the container
     command: ["sh", "-c", "./sbin/start-history-server.sh"]

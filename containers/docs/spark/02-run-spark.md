@@ -11,6 +11,8 @@ docker compose up
 
 ```shell
 docker compose up -d
+# Manually change owner of event log folder to fix permission denied
+sudo chown -R 1001:1001 /tmp/spark-cluster/spark-events
 ```
 
 ```shell
@@ -19,10 +21,6 @@ docker compose down
 
 ```shell
 sudo rm -rf /tmp/spark-cluster/
-```
-Manually change owner of event log folder to fix permission denied
-```shell
-chown -R 1001:1001 /tmp/spark-cluster/spark-events
 ```
 
 ```shell

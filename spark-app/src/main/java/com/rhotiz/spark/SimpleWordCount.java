@@ -35,17 +35,9 @@ public class SimpleWordCount {
                 System.out.println(message);
             });
 
-            sleep();
             // Step 6: Stop the Spark context
             sc.stop();
         }
     }
 
-    private static void sleep() {
-        try {
-            Thread.sleep(60_000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

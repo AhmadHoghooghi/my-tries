@@ -11,6 +11,9 @@ Use the spark-submit command inside the Spark master container to submit the app
 ```shell
 export SPARK_APP_PATH=../../../spark-app
 mvn clean package --file $SPARK_APP_PATH/pom.xml
+```
+cp application file to containers if it is not mounted in containers
+```shell
 docker cp $SPARK_APP_PATH/target/spark-app-1.0-SNAPSHOT.jar spark-master:/tmp/spark-app-1.0-SNAPSHOT.jar
 docker cp $SPARK_APP_PATH/target/spark-app-1.0-SNAPSHOT.jar spark-worker:/tmp/spark-app-1.0-SNAPSHOT.jar
 ```
@@ -23,7 +26,9 @@ docker exec -it spark-master /opt/bitnami/spark/bin/spark-submit \
 --master spark://spark-master:7077 \
 --deploy-mode cluster \
 --class $SPARK_APP \
-/tmp/spark-app-1.0-SNAPSHOT.jar
+--conf spark.eventLog.enabled=true \
+--conf spark.eventLog.dir=file:///tmp/spark-events \
+/tmp/spark-app-jars/spark-app-1.0-SNAPSHOT.jar
 ```
 see the result of submit here [http://localhost:8080/](http://localhost:8080/)
 

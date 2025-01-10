@@ -8,7 +8,7 @@ curl -XPOST http://localhost:6066/v1/submissions/create \
     "spark.app.name": "SimpleUpperCaseWorldCount",
     "spark.driver.memory": "1g",
     "spark.driver.cores": "1",
-    "spark.jars": "/tmp/spark-app-1.0-SNAPSHOT.jar",
+    "spark.jars": "/tmp/spark-app-jars/spark-app-1.0-SNAPSHOT.jar",
     "spark.driver.extraJavaOptions": "--add-exports=java.base/sun.nio.ch=ALL-UNNAMED",
     "spark.eventLog.enabled": "true",
     "spark.eventLog.dir": "file:///tmp/spark-events"
