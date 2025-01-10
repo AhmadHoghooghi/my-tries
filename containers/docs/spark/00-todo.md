@@ -27,9 +27,6 @@ solved by setting this property in docker compose for each master and worker: `S
 Description about property:
 The public DNS name of the Spark master and workers (default: none).
 
-# Monitoring port 4040
-- [ ] What is usage of 4040 port?
-
 # Storage
 - [ ] Can my current setup with docker compose have storage and check pointing with local file system?
 

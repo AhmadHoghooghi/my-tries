@@ -17,7 +17,6 @@ services:
     ports:
       - '8080:8080'
       - '6066:6066'
-      - "4040-4050:4040-4050" # Spark Application UIs
   spark-worker:
     container_name: spark-worker
     image: docker.arvancloud.ir/bitnami/spark:3.5
@@ -34,3 +33,4 @@ services:
       - SPARK_PUBLIC_DNS=localhost
     ports:
       - '8081:8081'
+      - "4040-4050:4040-4050" # Spark Application UIs

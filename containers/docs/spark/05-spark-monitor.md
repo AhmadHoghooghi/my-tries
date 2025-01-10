@@ -4,39 +4,12 @@ read these content:
 * https://spark.apache.org/docs/3.5.4/monitoring.html
 * And this description from chat gpt:
 
-The Spark UI typically runs on port 4040 for the first application. 
-```shell
-version: '3.8'
+We have three monitoring pages:
+* Spark Master: with port 8080
+* Spark Worker: with port 8081
+* Spark Application UI with port: 4040 and so on (e.g. 4041)
 
-services:
-  spark-master:
-    image: docker.io/bitnami/spark:latest
-    container_name: spark-master
-    environment:
-      - SPARK_MODE=master
-      - SPARK_RPC_AUTHENTICATION_ENABLED=no
-      - SPARK_RPC_ENCRYPTION_ENABLED=no
-      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
-      - SPARK_SSL_ENABLED=no
-    ports:
-      - "8080:8080" # Spark Master Web UI
-      - "4040-4050:4040-4050" # Spark Application UIs
-
-  spark-worker-1:
-    image: docker.io/bitnami/spark:latest
-    container_name: spark-worker-1
-    environment:
-      - SPARK_MODE=worker
-      - SPARK_MASTER_URL=spark://spark-master:7077
-      - SPARK_RPC_AUTHENTICATION_ENABLED=no
-      - SPARK_RPC_ENCRYPTION_ENABLED=no
-      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
-      - SPARK_SSL_ENABLED=no
-    depends_on:
-      - spark-master
-    ports:
-      - "8081:8081" # Spark Worker Web UI
-```
+The Spark application UI typically runs on port 4040 for the first application. 
 
 Once the application runs, you can access the Spark UI by visiting:
 
@@ -53,4 +26,7 @@ docker logs <application-container-name>
 Starting Spark application UI at http://<host>:4040
 
 Alternatively, if you're using a Spark driver, it prints the UI URL to the console output.
+
+Note that in cluster mode driver runs on one of worker machines. so in docker compose the worker should expose the port.
+
 
