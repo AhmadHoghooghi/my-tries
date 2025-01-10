@@ -57,3 +57,7 @@ and in docker compose we have passed such an option `SPARK_WORKER_CORES=1`. How 
 - [ ] read and understand this part well [resource allocation and configuration overview](https://spark.apache.org/docs/3.5.4/spark-standalone.html#resource-allocation-and-configuration-overview)
 
 # Do dependency management of application jars using maven
+
+# spark ui timezone
+
+# mount jar file to default address of jars
