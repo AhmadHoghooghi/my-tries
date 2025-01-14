@@ -5,4 +5,4 @@
 * [Spark Configuration](https://spark.apache.org/docs/3.5.4/configuration.html)
 
 until
-[Running Alongside Hadoop](https://spark.apache.org/docs/3.5.4/spark-standalone.html#running-alongside-hadoop)
+[parallelized-collections](https://spark.apache.org/docs/3.5.4/rdd-programming-guide.html#parallelized-collections)

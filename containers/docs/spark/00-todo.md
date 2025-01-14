@@ -61,3 +61,5 @@ and in docker compose we have passed such an option `SPARK_WORKER_CORES=1`. How 
 # spark ui timezone
 
 # mount jar file to default address of jars
+
+# limit memory of drivers to 500M

@@ -17,7 +17,7 @@ public class WordCountMasterMaster {
     public static void main(String[] args) {
         // Step 1: Configure Spark
         SparkConf conf = new SparkConf().setAppName("WordCountMasterMasterOn"+LocalTime.now(ZoneId.of("Asia/Tehran")))
-                .setMaster("spark://spark-master:7077");
+                .setMaster(System.getenv("SPARK_MASTER_URL"));
         try (JavaSparkContext sc = new JavaSparkContext(conf)) {
 
             // Step 2: Hardcoded string to process
