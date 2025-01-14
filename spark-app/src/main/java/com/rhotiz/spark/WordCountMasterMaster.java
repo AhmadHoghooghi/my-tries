@@ -8,12 +8,16 @@ import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.PairFunction;
 import scala.Tuple2;
 
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.List;
-public class SimpleWordCount {
+
+public class WordCountMasterMaster {
     public static void main(String[] args) {
         // Step 1: Configure Spark
-        SparkConf conf = new SparkConf().setAppName("SimpleWordCount").setMaster("local[*]");
+        SparkConf conf = new SparkConf().setAppName("WordCountMasterMasterOn"+LocalTime.now(ZoneId.of("Asia/Tehran")))
+                .setMaster("spark://spark-master:7077");
         try (JavaSparkContext sc = new JavaSparkContext(conf)) {
 
             // Step 2: Hardcoded string to process
@@ -39,5 +43,4 @@ public class SimpleWordCount {
             sc.stop();
         }
     }
-
 }

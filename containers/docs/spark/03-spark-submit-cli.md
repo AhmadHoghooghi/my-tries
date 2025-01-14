@@ -18,7 +18,11 @@ docker cp $SPARK_APP_PATH/target/spark-app-1.0-SNAPSHOT.jar spark-master:/tmp/sp
 docker cp $SPARK_APP_PATH/target/spark-app-1.0-SNAPSHOT.jar spark-worker:/tmp/spark-app-1.0-SNAPSHOT.jar
 ```
 ```shell
-export SPARK_APP=com.rhotiz.spark.SimpleWordCount
+export SPARK_APP=com.rhotiz.spark.WordCountLocalMaster
+```
+
+```shell
+export SPARK_APP=com.rhotiz.spark.WordCountMasterMaster
 ```
 
 ```shell
@@ -28,6 +32,8 @@ docker exec -it spark-master /opt/bitnami/spark/bin/spark-submit \
 --class $SPARK_APP \
 --conf spark.eventLog.enabled=true \
 --conf spark.eventLog.dir=file:///tmp/spark-events \
+--conf spark.executor.memory=512m \
+--conf spark.executor.cores=2 \
 /tmp/spark-app-jars/spark-app-1.0-SNAPSHOT.jar
 ```
 see the result of submit here [http://localhost:8080/](http://localhost:8080/)
