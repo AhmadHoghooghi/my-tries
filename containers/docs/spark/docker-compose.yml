@@ -1,4 +1,11 @@
 services:
+  volume-owner-fixer:
+    container_name: volume-owner-fixer
+    image: docker.arvancloud.ir/busybox:1.37.0
+    volumes:
+      - ${LOG_PATH_ON_HOST}:${LOG_PATH_ON_CONTAINER}
+    command: [ "sh", "-c", "chown -R 1001:1001 ${LOG_PATH_ON_CONTAINER}" ]
+
   spark-master:
     container_name: spark-master
     image: docker.arvancloud.ir/bitnami/spark:3.5
@@ -16,6 +23,8 @@ services:
       - '6066:6066'
     volumes:
       - ${SPARK_APPLICATION_JAR_DIRECTORY}:/tmp/spark-app-jars/
+    depends_on:
+      - volume-owner-fixer
     networks:
       - spark-net
 
@@ -40,6 +49,8 @@ services:
     volumes:
       - ${LOG_PATH_ON_HOST}:${LOG_PATH_ON_CONTAINER}
       - ${SPARK_APPLICATION_JAR_DIRECTORY}:/tmp/spark-app-jars/
+    depends_on:
+      - volume-owner-fixer
     networks:
       - spark-net
 
@@ -64,6 +75,8 @@ services:
     volumes:
       - ${LOG_PATH_ON_HOST}:${LOG_PATH_ON_CONTAINER}
       - ${SPARK_APPLICATION_JAR_DIRECTORY}:/tmp/spark-app-jars/
+    depends_on:
+      - volume-owner-fixer
     networks:
       - spark-net
 
@@ -78,6 +91,8 @@ services:
     volumes:
       - ${LOG_PATH_ON_HOST}:${LOG_PATH_ON_CONTAINER}  # Local directory mapped to /tmp/spark-events in the container
     command: ["sh", "-c", "./sbin/start-history-server.sh"]
+    depends_on:
+      - volume-owner-fixer
     networks:
       - spark-net
 
