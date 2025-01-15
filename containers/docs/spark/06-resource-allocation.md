@@ -1,5 +1,6 @@
+# Resources
 Note: consider that resource allocation is referenced by `scheduling` in these documents. If you wnat
-to understand `scheduler` in this terminology consider that in these concepts, things like Mesos, Yarn and K8s are 
+to understand `scheduler` in this terminology consider that in these concepts, things like Mesos, Yarn and K8s are
 mentioned as scheduler.
 
 Review basic concepts again from:
@@ -8,7 +9,7 @@ Review basic concepts again from:
     * 051-Dynamic Resource Allocation-Gp3Z-git.ir.mp4
     * 052-Resource Allocation Using Fair Scheduling-4O7j-git.ir.mp4
 * Spark Documentation:
-  * https://spark.apache.org/docs/3.5.4/cluster-overview.html#glossary
+    * https://spark.apache.org/docs/3.5.4/cluster-overview.html#glossary
 
 Then read this part from spark documentation:
 Resource Allocation in `spark-application` level:
@@ -20,7 +21,96 @@ Resource Allocation for each executor:
 Having Different amount of resource for each stage of application.
 * Stage Level Scheduling Overview: https://spark.apache.org/docs/3.5.4/spark-standalone.html#stage-level-scheduling-overview
 
-And these QAs:
+# Resource Allocation Basics
+I see some configuration points for resource allocation:
+
+## worker-memory
+| SPARK_WORKER_MEMORY | Env Varialbe | total memory minus 1 GiB |
+|---------------------|--------------|--------------------------|
+
+Total amount of memory to allow Spark applications to use on the machine, e.g. 1000m, 2g
+(default: total memory minus 1 GiB);
+note that each application's individual memory is configured using
+its `spark.executor.memory` property.
+
+## worker-core
+| SPARK_WORKER_CORES | Env Varialbe | all available cores |
+|---------------------|-------------|---------------------|
+
+Total number of cores to allow Spark applications to use on the machine.
+
+## executor-memory
+| spark.executor.memory | submit option  |
+|-----------------------|----------------|
+
+## executor-cores
+| spark.executor.cores | submit option | 
+|----------------------|---------------|
+
+```shell
+docker exec -it spark-master /opt/bitnami/spark/bin/spark-submit \
+--master spark://spark-master:7077 \
+--deploy-mode cluster \
+--class $SPARK_APP \
+--conf spark.eventLog.enabled=true \
+--conf spark.eventLog.dir=file:///tmp/spark-events \
+--conf spark.executor.memory=512m \
+--conf spark.executor.cores=2 \
+/tmp/spark-app-jars/spark-app-1.0-SNAPSHOT.jar
+```
+
+## driver-memory
+| spark.driver.memory | submit option | 
+|---------------------|---------------|
+
+## driver-cores
+| spark.driver.cores | submit option | 
+|--------------------|---------------|
+
+```shell
+$ curl -XPOST http://IP:PORT/v1/submissions/create \
+--header "Content-Type:application/json;charset=UTF-8" \
+--data '{
+  "appResource": "",
+  "sparkProperties": {
+    "spark.master": "spark://master:7077",
+    "spark.app.name": "Spark Pi",
+    "spark.driver.memory": "1g",
+    "spark.driver.cores": "1",
+    "spark.jars": ""
+  },
+  "clientSparkVersion": "",
+  "mainClass": "org.apache.spark.deploy.SparkSubmit",
+  "environmentVariables": { },
+  "action": "CreateSubmissionRequest",
+  "appArgs": [ "/opt/spark/examples/src/main/python/pi.py", "10" ]
+}'
+
+```
+
+## application default cores
+| spark.deploy.defaultCores | SPARK_MASTER_OPTS | infinite |
+|---------------------------|-------------------|----------|
+
+Default number of cores to give to applications in Spark's standalone mode if
+they don't set spark.cores.max. If not set, applications always get all
+available cores unless they configure `spark.cores.max` themselves.
+Set this lower on a shared cluster to prevent users from grabbing the whole
+cluster by default.
+
+## application cores
+| spark.cores.max | sparkConf |
+|-----------------|-----------|
+```
+val conf = new SparkConf()
+  .setMaster(...)
+  .setAppName(...)
+  .set("spark.cores.max", "10")
+val sc = new SparkContext(conf)
+```
+
+
+# QA
 
 The paragraph describes **Stage Level Scheduling** in Spark's standalone mode and how it behaves with and without dynamic allocation. Let’s break it down into smaller, more comprehensible parts:
 
@@ -229,3 +319,5 @@ Despite these limitations, ResourceProfiles can still provide:
 - **Custom Resource Utilization**: Enables stages to use specialized resources (e.g., GPUs) within the fixed executor setup.
 
 Would you like a code example showing task-level resource adjustments with fixed executors?
+
+
