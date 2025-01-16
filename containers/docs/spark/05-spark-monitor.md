@@ -1,5 +1,5 @@
 read these content:
-
+* https://www.youtube.com/watch?v=rNpzrkB5KQQ
 * https://spark.apache.org/docs/3.5.4/cluster-overview.html#monitoring
 * https://spark.apache.org/docs/3.5.4/monitoring.html
 * And this description from chat gpt:

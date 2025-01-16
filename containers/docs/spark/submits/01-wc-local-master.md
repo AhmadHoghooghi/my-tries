@@ -1,25 +1,3 @@
-Submit from the Spark master container
-
-Steps:
-Copy the JAR file to the Spark master container.
-Use the spark-submit command inside the Spark master container to submit the application.
-
-```shell
-
-```
-
-```shell
-export SPARK_APP_PATH=../../../spark-app
-mvn clean package --file $SPARK_APP_PATH/pom.xml
-```
-cp application file to containers if it is not mounted in containers
-```shell
-docker cp $SPARK_APP_PATH/target/spark-app-1.0-SNAPSHOT.jar spark-master:/tmp/spark-app-1.0-SNAPSHOT.jar
-docker cp $SPARK_APP_PATH/target/spark-app-1.0-SNAPSHOT.jar spark-worker:/tmp/spark-app-1.0-SNAPSHOT.jar
-```
-```shell
-export SPARK_APP=com.rhotiz.spark.WordCountLocalMaster
-```
 
 ```shell
 export SPARK_APP=com.rhotiz.spark.WordCountMasterMaster

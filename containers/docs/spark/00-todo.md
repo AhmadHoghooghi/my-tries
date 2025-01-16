@@ -59,7 +59,33 @@ and in docker compose we have passed such an option `SPARK_WORKER_CORES=1`. How 
 # Do dependency management of application jars using maven
 
 # spark ui timezone
+this may have effect on it:
+user.timezone history server system properties
 
 # mount jar file to default address of jars
 
 # limit memory of drivers to 500M
+
+# Executor is killed.
+when i submit a job and get the results, I see the results in standard output of driver and there is no error
+in stderr of driver. on the other side, the status of executor is killed and i see this error there:
+
+`25/01/16 07:23:32 ERROR CoarseGrainedExecutorBackend: RECEIVED SIGNAL TERM tdown`
+
+Is there something wrong with the way i end the tasks?
+
+# UI sql tab
+Why I don't see sql tab in my UI?
+
+# UI executors tab
+Why I don't see executors in my UI?
+
+# UI for metrics
+Why  don't see ui for metrics?
+
+# UI for structured streaming
+I saw a ui for structured streaming here: https://youtu.be/rNpzrkB5KQQ?si=xB6APitOtFlfWvnk&t=720
+
+# concept of cache? 
+this can be used for #optimize_check_list
+
