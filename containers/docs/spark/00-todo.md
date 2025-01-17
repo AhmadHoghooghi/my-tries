@@ -89,3 +89,6 @@ I saw a ui for structured streaming here: https://youtu.be/rNpzrkB5KQQ?si=xB6APi
 # concept of cache? 
 this can be used for #optimize_check_list
 
+# a complete docker with local mode 1 for test
+with and history server 
+
