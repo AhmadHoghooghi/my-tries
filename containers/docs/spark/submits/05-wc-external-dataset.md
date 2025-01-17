@@ -14,6 +14,7 @@ docker exec -it spark-master /opt/bitnami/spark/bin/spark-submit \
 --conf spark.executor.cores=2 \
 --conf spark.driver.memory=512m \
 --conf spark.driver.cores=1 \
+--conf spark.sql.session.timeZone="Asia/Tehran" \
 /tmp/spark-app-jars/spark-app-1.0-SNAPSHOT.jar true
 ```
 
