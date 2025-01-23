@@ -11,6 +11,6 @@
 - [ ] https://spark.apache.org/docs/3.5.4/job-scheduling.html
 - [ ] https://spark.apache.org/docs/3.5.4/hardware-provisioning.html
 - [ ] https://spark.apache.org/third-party-projects.html
-
+- [ ] https://sparkbyexamples.com
 until
 [parallelized-collections](https://spark.apache.org/docs/3.5.4/rdd-programming-guide.html#parallelized-collections)

@@ -11,7 +11,7 @@
     <groupId>com.rhotiz</groupId>
     <artifactId>containers</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>container-demo</name>
+    <name>containers</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>17</java.version>
@@ -40,7 +40,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <version>1.18.36</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -88,6 +88,12 @@
             <version>1.2.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.maven.shared</groupId>
+            <artifactId>maven-invoker</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -121,27 +127,35 @@
 
     <repositories>
         <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+        <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
     </repositories>
 
     <profiles>
-        <profile>
-            <id>JDK9+</id>
-            <activation>
-                <jdk>[9,)</jdk>
-            </activation>
-            <properties>
-                <maven.compiler.release>8</maven.compiler.release> <!-- release is added in java 9 -->
-                <argLine>
-                    --add-opens java.base/java.net=ALL-UNNAMED
-                    --add-opens java.base/sun.net=ALL-UNNAMED
-                    --add-opens java.security.jgss/sun.security.krb5=ALL-UNNAMED <!-- Because of HBase client -->
-                    --add-opens java.base/java.nio=ALL-UNNAMED <!-- Because of HBase client -->
-                </argLine>
-            </properties>
-        </profile>
+<!--        <profile>-->
+<!--            <id>JDK9+</id>-->
+<!--            <activation>-->
+<!--                <jdk>[9,)</jdk>-->
+<!--            </activation>-->
+<!--            <properties>-->
+<!--                <maven.compiler.release>8</maven.compiler.release> &lt;!&ndash; release is added in java 9 &ndash;&gt;-->
+<!--                <argLine>-->
+<!--                    &#45;&#45;add-opens java.base/java.net=ALL-UNNAMED-->
+<!--                    &#45;&#45;add-opens java.base/sun.net=ALL-UNNAMED-->
+<!--                    &#45;&#45;add-opens java.security.jgss/sun.security.krb5=ALL-UNNAMED &lt;!&ndash; Because of HBase client &ndash;&gt;-->
+<!--                    &#45;&#45;add-opens java.base/java.nio=ALL-UNNAMED &lt;!&ndash; Because of HBase client &ndash;&gt;-->
+<!--                </argLine>-->
+<!--            </properties>-->
+<!--        </profile>-->
     </profiles>
 
 
