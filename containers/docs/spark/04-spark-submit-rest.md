@@ -4,7 +4,7 @@ curl -XPOST http://localhost:6066/v1/submissions/create \
 --data '{
   "appResource": "",
   "sparkProperties": {
-    "spark.master": "spark://master:7077",
+    "spark.master": "local[*]",
     "spark.app.name": "SimpleUpperCaseWorldCount",
     "spark.driver.memory": "1g",
     "spark.driver.cores": "1",
