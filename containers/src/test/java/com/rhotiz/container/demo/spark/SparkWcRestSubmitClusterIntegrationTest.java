@@ -27,11 +27,20 @@ import java.util.Map;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+/**
+ * I couldn't find a solution to submit with rest on local mode
+ * The master waits for workers and I get this log:
+ * driver-xxx-yyy requires more resource than any of Workers could have.
+ */
+
 @SpringBootTest
 @Testcontainers
-@TestPropertySource(properties = {"logging.level.feign=DEBUG",
-        "logging.level.com.rhotiz.container.demo.spark.dto.SparkSubmitClient=DEBUG"})
-public class SparkWcIntegrationTest {
+@TestPropertySource(properties = {
+        "logging.level.feign=DEBUG",
+        "logging.level.com.rhotiz.container.demo.spark.dto.SparkSubmitClient=DEBUG",
+        "spark.interaction.config.enabled=true"
+})
+public class SparkWcRestSubmitClusterIntegrationTest {
 
     static {
         packageJarFile();
@@ -85,12 +94,12 @@ public class SparkWcIntegrationTest {
     }
 
     @Autowired
-    private SparkRestClient sparkRestClient;
+    private SparkFeignClient sparkFeignClient;
 
 
     @Test
     void runSparkTest() throws InterruptedException, MavenInvocationException {
-        CreateSubmissionResponseDto submitResponse = sparkRestClient.submitSparkJob(createSparkSubmitJson());
+        CreateSubmissionResponseDto submitResponse = sparkFeignClient.submitSparkJob(createSparkSubmitJson());
         System.out.println(submitResponse);
         assertThat(submitResponse.isSuccess(), is(true));
 
@@ -99,7 +108,7 @@ public class SparkWcIntegrationTest {
                 .pollInterval(Duration.ofSeconds(5))
                 .forever()
                 .until(() -> {
-                    SubmissionStatusResponseDto jobStatus = sparkRestClient.getJobStatus(submitResponse.getSubmissionId());
+                    SubmissionStatusResponseDto jobStatus = sparkFeignClient.getJobStatus(submitResponse.getSubmissionId());
                     System.out.println(jobStatus);
                     return jobStatus.getDriverState() == DriverState.FINISHED;
                 });
