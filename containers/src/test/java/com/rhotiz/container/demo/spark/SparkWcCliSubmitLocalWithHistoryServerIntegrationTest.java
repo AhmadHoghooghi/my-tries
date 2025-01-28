@@ -13,6 +13,7 @@ import org.testcontainers.containers.Container.ExecResult;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.startupcheck.OneShotStartupCheckStrategy;
+import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
@@ -55,11 +56,13 @@ public class SparkWcCliSubmitLocalWithHistoryServerIntegrationTest {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public static GenericContainer spark = new GenericContainer(DockerImageName.parse("docker.arvancloud.ir/bitnami/spark:3.5"))
             .withEnv("SPARK_PUBLIC_DNS", "localhost")
-            .withExposedPorts(8080)
+            .withExposedPorts(8080, 4040)
             .withLogConsumer(new Slf4jLogConsumer(MASTER_CONTAINER_LOGGER))
             .withFileSystemBind(JAR_FILE_PATH, "/tmp/spark-app-jars/", BindMode.READ_WRITE)
             .withFileSystemBind("/tmp/spark-cluster/spark-events", "/tmp/spark-events", BindMode.READ_WRITE)
-            .dependsOn(volumeOwnerFixer);
+            .dependsOn(volumeOwnerFixer)
+            .waitingFor(Wait.forListeningPorts(8080))
+            ;
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     @Container
@@ -70,13 +73,14 @@ public class SparkWcCliSubmitLocalWithHistoryServerIntegrationTest {
             .withCommand("sh", "-c", "./sbin/start-history-server.sh") // add chown -R 1001:1001 /tmp/spark-events
             .withLogConsumer(new Slf4jLogConsumer(HISTORY_CONTAINER_LOGGER))
             .withFileSystemBind("/tmp/spark-cluster/spark-events", "/tmp/spark-events", BindMode.READ_WRITE)
-            .dependsOn(volumeOwnerFixer);
+            .dependsOn(volumeOwnerFixer)
+            ;
 
 
     @Test
     void runSparkTest() throws InterruptedException, IOException {
         System.out.println("Master: http://localhost:" + spark.getMappedPort(8080));
-//        System.out.println("APP: http://localhost:" + spark.getMappedPort(4040));
+        System.out.println("APP: http://localhost:" + spark.getMappedPort(4040));
         System.out.println("History: http://localhost:" + sparkHistory.getMappedPort(18080));
 
         String[] command = {
