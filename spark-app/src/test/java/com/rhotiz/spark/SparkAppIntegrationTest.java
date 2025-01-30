@@ -50,7 +50,7 @@ public class SparkAppIntegrationTest {
             .withEnv("SPARK_PUBLIC_DNS", "localhost")
             .withEnv("SPARK_HISTORY_OPTS", "-Dspark.history.fs.logDirectory=file:///tmp/spark-events")
             .withExposedPorts(18080)
-            .withCommand("sh", "-c", "./sbin/start-history-server.sh") // add chown -R 1001:1001 /tmp/spark-events
+            .withCommand("sh", "-c", "./sbin/start-history-server.sh")
             .withLogConsumer(new Slf4jLogConsumer(HISTORY_CONTAINER_LOGGER))
             .withFileSystemBind("/tmp/spark-cluster/spark-events", "/tmp/spark-events", BindMode.READ_WRITE)
             .dependsOn(volumeOwnerFixer);

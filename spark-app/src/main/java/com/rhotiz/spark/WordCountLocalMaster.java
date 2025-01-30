@@ -16,7 +16,9 @@ public class WordCountLocalMaster {
         SparkConf conf = new SparkConf()
                 .setAppName("WordCountLocalMaster")
                 .set("spark.cores.max", "1")
-                .setMaster("local[*]");
+                .setMaster("local[*]")
+                ;
+//
         try (JavaSparkContext sc = new JavaSparkContext(conf)) {
 
             // Step 2: Hardcoded string to process
