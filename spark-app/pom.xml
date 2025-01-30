@@ -13,6 +13,8 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <lombok.version>1.18.36</lombok.version>
+        <skipUnitTests>false</skipUnitTests>
+        <skipIntegrationTests>false</skipIntegrationTests>
     </properties>
 
     <dependencies>
@@ -113,6 +115,7 @@
                                 <exclude>**/*IT.java</exclude>
                                 <exclude>**/*ITCase.java</exclude>
                             </excludes>
+                            <skipTests>${skipUnitTests}</skipTests>
                         </configuration>
                     </execution>
                     <execution>
@@ -133,6 +136,7 @@
                                 <include>**/*IT.java</include>
                                 <include>**/*ITCase.java</include>
                             </includes>
+                            <skipTests>${skipIntegrationTests}</skipTests>
                         </configuration>
                     </execution>
                 </executions>
