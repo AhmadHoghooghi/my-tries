@@ -12,12 +12,16 @@ import java.util.Arrays;
 import java.util.List;
 public class WordCountLocalMaster {
     public static void main(String[] args) {
-        // Step 1: Configure Spark
         SparkConf conf = new SparkConf()
                 .setAppName("WordCountLocalMaster")
-                .set("spark.cores.max", "1")
-                .setMaster("local[*]")
-                ;
+                .set("spark.cores.max", "1");
+
+        int numOfSlices;
+        if(args.length< 1){
+            numOfSlices = 1;
+        } else {
+            numOfSlices = Integer.parseInt(args[0]);
+        }
 //
         try (JavaSparkContext sc = new JavaSparkContext(conf)) {
 
@@ -25,7 +29,7 @@ public class WordCountLocalMaster {
             String input = "hello world hello spark spark is awesome";
 
             // Step 3: Convert the string into an RDD
-            JavaRDD<String> lines = sc.parallelize(List.of(input));
+            JavaRDD<String> lines = sc.parallelize(List.of(input), numOfSlices);
 
             // Step 4: Perform word count
             JavaRDD<String> words = lines.flatMap(line -> Arrays.asList(line.split(" ")).iterator());

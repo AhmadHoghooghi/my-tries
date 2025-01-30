@@ -60,8 +60,29 @@
             <version>1.20.4</version>
             <scope>test</scope>
         </dependency>
-        <!-- ... -->
         <!--    TEST END   -->
+
+
+        <!-- Logging problem: -->
+<!--        SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".-->
+<!--        SLF4J: Defaulting to no-operation (NOP) logger implementation-->
+<!--        SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.-->
+<!--        SLF4J: Failed to load class "org.slf4j.impl.StaticMDCBinder".-->
+<!--        SLF4J: Defaulting to no-operation MDCAdapter implementation.-->
+<!--        SLF4J: See http://www.slf4j.org/codes.html#no_static_mdc_binder for further details.-->
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.7</version>  <!-- Matches jul-to-slf4j -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j2-impl</artifactId>
+            <version>2.24.3</version>
+        </dependency>
+<!---->
     </dependencies>
 
     <build>
