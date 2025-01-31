@@ -3,7 +3,7 @@
 docker exec -it spark-master /opt/bitnami/spark/bin/spark-submit \
 --master spark://spark-master:7077 \
 --deploy-mode cluster \
---class com.rhotiz.spark.WordCountLocalMaster \
+--class com.rhotiz.spark.WordCount \
 --conf spark.eventLog.enabled=true \
 --conf spark.eventLog.dir=file:///tmp/spark-events \
 --conf spark.executor.memory=512m \

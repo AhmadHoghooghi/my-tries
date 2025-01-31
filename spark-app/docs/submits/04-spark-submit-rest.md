@@ -14,7 +14,7 @@ curl -XPOST http://localhost:6066/v1/submissions/create \
     "spark.eventLog.dir": "file:///tmp/spark-events"
   },
   "clientSparkVersion": "",
-  "mainClass": "com.rhotiz.spark.WordCountLocalMaster",
+  "mainClass": "com.rhotiz.spark.WordCount",
   "environmentVariables": { },
   "action": "CreateSubmissionRequest",
   "appArgs": []

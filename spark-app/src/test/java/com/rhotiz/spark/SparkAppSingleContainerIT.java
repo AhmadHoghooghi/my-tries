@@ -17,15 +17,18 @@ import org.testcontainers.utility.DockerImageName;
 import java.io.IOException;
 import java.util.function.Consumer;
 
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 @Testcontainers
-public class SparkAppIntegrationTest {
+public class SparkAppSingleContainerIT {
 
 
-//    static Logger MASTER_CONTAINER_LOGGER = LoggerFactory.getLogger("SparkContainer");
-    static Logger MASTER_CONTAINER_LOGGER = NOPLogger.NOP_LOGGER;
+    static Logger MASTER_CONTAINER_LOGGER = LoggerFactory.getLogger("SparkContainer");
+//    static Logger MASTER_CONTAINER_LOGGER = NOPLogger.NOP_LOGGER;
 
-//    static Logger HISTORY_CONTAINER_LOGGER = LoggerFactory.getLogger("HistoryContainer");
-    static Logger HISTORY_CONTAINER_LOGGER = NOPLogger.NOP_LOGGER;
+    static Logger HISTORY_CONTAINER_LOGGER = LoggerFactory.getLogger("HistoryContainer");
+//    static Logger HISTORY_CONTAINER_LOGGER = NOPLogger.NOP_LOGGER;
 
     static String JAR_FILE_PATH = "/home/ahmad/codes/my-tries/spark-app/target/";
 
@@ -33,36 +36,25 @@ public class SparkAppIntegrationTest {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public static GenericContainer spark = new GenericContainer(DockerImageName.parse("docker.arvancloud.ir/bitnami/spark:3.5"))
             .withEnv("SPARK_PUBLIC_DNS", "localhost")
-            .withExposedPorts(8080, 4040)
+            .withEnv("SPARK_HISTORY_OPTS", "-Dspark.history.fs.logDirectory=file:///tmp/spark-events")
+            .withExposedPorts(8080, 18080, 4040)
             .withLogConsumer(new Slf4jLogConsumer(MASTER_CONTAINER_LOGGER))
             .withFileSystemBind(JAR_FILE_PATH, "/tmp/spark-app-jars/", BindMode.READ_WRITE)
-            .withFileSystemBind("/tmp/spark-cluster/spark-events", "/tmp/spark-events", BindMode.READ_WRITE)
-            .waitingFor(Wait.forListeningPorts(8080));
-
-    @SuppressWarnings({"rawtypes", "unchecked"})
-    @Container
-    public static GenericContainer sparkHistory = new GenericContainer(DockerImageName.parse("docker.arvancloud.ir/bitnami/spark:3.5"))
-            .withCreateContainerCmdModifier((Consumer<CreateContainerCmd>) (CreateContainerCmd cmd) -> cmd.withUser("root"))
-            .withEnv("SPARK_PUBLIC_DNS", "localhost")
-            .withEnv("SPARK_HISTORY_OPTS", "-Dspark.history.fs.logDirectory=file:///tmp/spark-events")
-            .withExposedPorts(18080)
-            .withCommand("sh", "-c", "rm -rf /tmp/spark-events/* && chown -R 1001:1001 /tmp/spark-events && ./sbin/start-history-server.sh")
-            .withLogConsumer(new Slf4jLogConsumer(HISTORY_CONTAINER_LOGGER))
-            .withFileSystemBind("/tmp/spark-cluster/spark-events", "/tmp/spark-events", BindMode.READ_WRITE)
+            .withCommand("bash", "-c", "mkdir /tmp/spark-events && /opt/bitnami/scripts/spark/run.sh & /opt/bitnami/spark/sbin/start-history-server.sh")
+            .waitingFor(Wait.forListeningPorts(18080, 18080))
             ;
 
 
     @Test
     void runSparkTest() throws InterruptedException, IOException {
-        System.out.println("Master: http://localhost:" + spark.getMappedPort(8080));
+        System.out.println("History: http://localhost:" + spark.getMappedPort(18080));
         System.out.println("APP: http://localhost:" + spark.getMappedPort(4040));
-        System.out.println("History: http://localhost:" + sparkHistory.getMappedPort(18080));
 
         String[] command = {
                 "/opt/bitnami/spark/bin/spark-submit",
                 "--master", "local[1]",
                 "--deploy-mode", "client",
-                "--class", "com.rhotiz.spark.WordCountLocalMaster",
+                "--class", "com.rhotiz.spark.WordCount",
                 "--conf", "spark.executor.memory=512m",
                 "--conf", "spark.executor.cores=1",
                 "--conf", "spark.driver.memory=512m",
@@ -70,7 +62,8 @@ public class SparkAppIntegrationTest {
                 "--conf", "spark.eventLog.enabled=true",
                 "--conf", "spark.eventLog.dir=file:///tmp/spark-events",
                 "/tmp/spark-app-jars/spark-app-1.0-SNAPSHOT.jar",
-                "2"
+                "2",
+                "30"
 
         };
 
@@ -78,6 +71,12 @@ public class SparkAppIntegrationTest {
         System.out.println("execResult.getExitCode() = " + execResult.getExitCode());
         System.out.println("execResult.getStdout() = " + execResult.getStdout());
         System.out.println("execResult.getStderr() = " + execResult.getStderr());
+
+        assertThat(execResult.getStdout(), containsString("IS: 1"));
+        assertThat(execResult.getStdout(), containsString("HELLO: 2"));
+        assertThat(execResult.getStdout(), containsString("WORLD: 1"));
+        assertThat(execResult.getStdout(), containsString("SPARK: 2"));
+        assertThat(execResult.getStdout(), containsString("AWESOME: 1"));
 
 
         //submit the application with feign

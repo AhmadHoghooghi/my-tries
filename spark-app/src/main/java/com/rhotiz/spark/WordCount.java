@@ -10,17 +10,25 @@ import scala.Tuple2;
 
 import java.util.Arrays;
 import java.util.List;
-public class WordCountLocalMaster {
+
+public class WordCount {
     public static void main(String[] args) {
         SparkConf conf = new SparkConf()
                 .setAppName("WordCountLocalMaster")
                 .set("spark.cores.max", "1");
 
         int numOfSlices;
-        if(args.length< 1){
+        if (args.length < 1) {
             numOfSlices = 1;
         } else {
             numOfSlices = Integer.parseInt(args[0]);
+        }
+
+        int sleepSeconds;
+        if (args.length < 2) {
+            sleepSeconds = 0;
+        } else {
+            sleepSeconds = Integer.parseInt(args[1]);
         }
 //
         try (JavaSparkContext sc = new JavaSparkContext(conf)) {
@@ -43,6 +51,12 @@ public class WordCountLocalMaster {
                 String message = StringUtils.upperCase(tuple._1()) + ": " + tuple._2();
                 System.out.println(message);
             });
+
+            try {
+                Thread.sleep(sleepSeconds * 1000L);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
 
             // Step 6: Stop the Spark context
             sc.stop();
