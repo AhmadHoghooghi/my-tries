@@ -1,6 +1,8 @@
 package com.rhotiz.container.demo;
 
 public class Constants {
+    public static final String SCHEMA_REGISTRY_TOPIC = "schema-registry-topic";
+
     public Constants() {
     }
 

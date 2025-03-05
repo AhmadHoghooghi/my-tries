@@ -1,0 +1,8 @@
+{
+  "namespace":"com.rhotiz.avro",
+  "type": "record",
+  "name": "MyMessage",
+  "fields": [
+    {"name": "message", "type": "string"}
+  ]
+}

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
-@Slf4j
 @Service
 @ConditionalOnProperty(value = "kafka.interaction.action.enabled", havingValue = "true")
 public class MyKafkaProducer {

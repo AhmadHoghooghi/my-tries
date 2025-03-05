@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
 @Service
 @ConditionalOnProperty(value = "kafka.interaction.config.enabled", havingValue = "true")
 public class MyKafkaListener {
