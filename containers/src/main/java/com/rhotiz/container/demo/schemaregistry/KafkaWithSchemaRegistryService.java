@@ -20,7 +20,7 @@ public class KafkaWithSchemaRegistryService {
     @Scheduled(fixedRate = 5000L)
     void sendMessage() {
         String messageString = "Hello world from avro message " + LocalTime.now();
-        System.out.println("generating message: "+messageString);
+        System.out.println("generating message: "+ messageString);
         MyMessage message = new MyMessage(messageString);
 
         kafkaTemplate.send(Constants.SCHEMA_REGISTRY_TOPIC, message);
