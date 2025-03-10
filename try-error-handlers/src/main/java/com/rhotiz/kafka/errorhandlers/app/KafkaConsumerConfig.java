@@ -9,7 +9,10 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.listener.DefaultErrorHandler;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
+import org.springframework.util.backoff.BackOff;
+import org.springframework.util.backoff.FixedBackOff;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +42,11 @@ public class KafkaConsumerConfig {
         ConcurrentKafkaListenerContainerFactory<String, MyCommand> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
+        BackOff backOff = new FixedBackOff(500L, 5);
+        DefaultErrorHandler commonErrorHandler = new DefaultErrorHandler(backOff);
+        commonErrorHandler.setAckAfterHandle(false);
+        System.out.println("commonErrorHandler.isAckAfterHandle(): " + commonErrorHandler.isAckAfterHandle());
+        factory.setCommonErrorHandler(commonErrorHandler);
         return factory;
     }
 }

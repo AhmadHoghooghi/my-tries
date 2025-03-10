@@ -14,7 +14,6 @@ public class ExecutionUtil {
             List<String> strings = null;
             strings = Files.readAllLines(path);
             char c = (strings.get(strings.size() - 1).trim()).charAt(0);
-            c = (char) (c + 1);
             return String.valueOf(c);
         } catch (IOException e) {
             throw new RuntimeException(e);
