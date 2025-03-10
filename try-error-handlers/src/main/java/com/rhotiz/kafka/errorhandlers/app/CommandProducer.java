@@ -15,8 +15,11 @@ public class CommandProducer {
     @Scheduled(fixedRate = 5*60*1000L)
     public void sendCommands() {
         String executionId = ExecutionUtil.getExecutionId();
-        MyCommand myCommand = new MyCommand(executionId, commandId++, 1);
-        System.out.println("Sending "+ myCommand);
-        kafkaTemplate.send(Constants.TOPIC, myCommand);
+        MyCommand myCommand1 = new MyCommand(executionId, commandId++, 1);
+        System.out.println("Sending "+ myCommand1);
+        kafkaTemplate.send(Constants.TOPIC, myCommand1);
+        MyCommand myCommand2 = new MyCommand(executionId, commandId++, 0);
+        System.out.println("Sending "+ myCommand2);
+        kafkaTemplate.send(Constants.TOPIC, myCommand2);
     }
 }

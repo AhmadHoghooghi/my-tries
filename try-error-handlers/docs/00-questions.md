@@ -1,9 +1,9 @@
-# DefaultErrorHandler
+# DefaultErrorHandler [done]
 study code of Default Error Handler, its implementation and it customization points.
 
 It seems we can use it like this: `factory.setCommonErrorHandler(errorHandler);`
 
-# Decorator pattern like Error Handlers:
+# Decorator pattern like Error Handlers: [done]
 
 read and understand this code by documentation:
 ```java
@@ -22,10 +22,6 @@ DefaultErrorHandler errorHandler = new DefaultErrorHandler(
 
 factory.setCommonErrorHandler(errorHandler);
 ```
-
-# next message:
-What is the reaction of spring kafka for next message?
-is the having error message acked and next message is consumed?
 
 # stop spring boot app
 how can we stop a spring boot app in case we want to stop app after retries
