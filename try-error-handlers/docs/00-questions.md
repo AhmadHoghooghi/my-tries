@@ -34,6 +34,7 @@ classes like:
 - `org.springframework.kafka.listener.FailedRecordProcessor`
 
 # Read error handling from documentation
+https://docs.spring.io/spring-kafka/reference/kafka/annotation-error-handling.html
 
 # ask Deepseek to describe ErrorHandlers
 ignore error handlers related to DLT and transaction management
