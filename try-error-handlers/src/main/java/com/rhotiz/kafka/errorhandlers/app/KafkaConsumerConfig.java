@@ -42,11 +42,6 @@ public class KafkaConsumerConfig {
         ConcurrentKafkaListenerContainerFactory<String, MyCommand> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
-        BackOff backOff = new FixedBackOff(500L, 5);
-        DefaultErrorHandler commonErrorHandler = new DefaultErrorHandler(backOff);
-        commonErrorHandler.setAckAfterHandle(false);
-        System.out.println("commonErrorHandler.isAckAfterHandle(): " + commonErrorHandler.isAckAfterHandle());
-        factory.setCommonErrorHandler(commonErrorHandler);
         return factory;
     }
 }
