@@ -32,3 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 containers/docs/NYPD_Crash_Data.csv
+executionId.txt
