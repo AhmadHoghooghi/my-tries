@@ -92,3 +92,5 @@ this can be used for #optimize_check_list
 # a complete docker with local mode 1 for test
 with and history server 
 
+# Write a spark streaming application that reads from a socket and writes on console (Word Count)
+
